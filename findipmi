@@ -25,10 +25,10 @@ function findipmi() {
         while read IP; do
                 output=$(curl -ksm $IPMI_TIMEOUT $IP | grep $IPMI_STRING)
                 if test ! -z "$output"
-        then
-                # print a list of IPMI urls for the user
-                printf " $IP\n";
-        fi
+                then
+                        # print a list of IPMI urls for the user
+                        printf " $IP\n";
+                fi
         done < findipmi_ips.txt
         printf "\n"
 
