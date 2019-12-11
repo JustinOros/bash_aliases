@@ -4,14 +4,17 @@ function findipmi() {
         printf " by Justin Oros\n"
         [ -z $1 ] && printf "\n Usage: findipmi 1.2.3.4/24\n\n"
 
-        # network segment to scan
+        # network to scan
         IPMI_NETWORK=$1
 
-        # web server port to probe
+        # port to probe
         IPMI_PORT=80
 
         # timeout
         IPMI_TIMEOUT=3
+
+        # search string
+        IPMI_STRING=login.cgi
 
         [ ! -z $IPMI_NETWORK ] && printf "\n Scanning $IPMI_NETWORK on port $IPMI_PORT...\n\n"
 
@@ -20,7 +23,7 @@ function findipmi() {
 
         # connect to each host and look for a login form
         while read IP; do
-                output=$(curl -ksm $IPMI_TIMEOUT $IP | grep login.cgi)
+                output=$(curl -ksm $IPMI_TIMEOUT $IP | grep $IPMI_STRING)
                 if test ! -z "$output"
         then
                 # print a list of IPMI urls for the user
