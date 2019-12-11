@@ -1,0 +1,24 @@
+function findipmi() {
+
+	printf "\n Supermicro Intelligent Management Scanner\n"
+	printf " by Justin Oros\n"
+        printf "\n Usage: findipmi 1.2.3.4/24\n\n"
+
+	# get host from user input
+	myhost=$1
+
+	# get a list of all live hosts with a listening web server
+	nmap $1 -p80 --open -oG - | awk '/80\/open/{print $2}' > findipmi_ips.txt
+
+	# connect to each host and look for a login form
+	while read IP; do
+		output=$(curl -s $IP | grep login.cgi)
+		if test ! -z "$output"
+	then
+		# print a list of IPMI urls for the user
+		printf " http://$IP\n";
+	fi
+	done < findipmi_ips.txt
+	printf "\n"
+  
+}
