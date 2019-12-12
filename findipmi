@@ -18,15 +18,15 @@ function findipmi() {
 
         [ ! -z $IPMI_NETWORK ] && printf "\n Scanning $IPMI_NETWORK on port $IPMI_PORT...\n\n"
 
-        # get a list of all live hosts with a listening web server
+        # get a list of live IPs with a listening http port
         nmap $IPMI_NETWORK -p$IPMI_PORT --open -oG - | awk '/open/{print $2}' > findipmi_ips.txt
 
-        # connect to each host and look for a login form
+        # connect to each host and search for a login form
         while read IP; do
                 output=$(curl -ksm $IPMI_TIMEOUT $IP | grep $IPMI_STRING)
                 if test ! -z "$output"
                 then
-                        # print a list of IPMI urls for the user
+                        # print a list of IPMI IPs for the user
                         printf " $IP\n";
                 fi
         done < findipmi_ips.txt
