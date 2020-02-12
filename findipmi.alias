@@ -1,4 +1,4 @@
-function findipmi() {
+findipmi() {
 
         printf "\n Supermicro Intelligent Management Scanner\n"
         printf " by Justin Oros\n"
