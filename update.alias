@@ -1,6 +1,6 @@
 update() {
-	sudo apt update;	# Download lists of new/upgradable packages
-	sudo apt upgrade -y;	# Perform a safe upgrade
-	sudo apt clean;		# Erase downloaded archive files
-	sudo apt autoclean;	# Erase old downloaded archive files
+	apt update;	# Download lists of new/upgradable packages
+	apt upgrade -y;	# Perform a safe upgrade
+	apt clean;	# Erase downloaded archive files
+	apt autoclean;	# Erase old downloaded archive files
 }
